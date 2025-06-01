@@ -5,23 +5,20 @@ import pandas as pd
 from tsfresh import extract_features
 
 
-def read_activity_file(patient_id):
+def read_hrv_file(patient_id):
     """
-    Read patient activity file
+    Read patient hrv file
     
     Args:
         patient_id: Identifier for the patient.
 
     Returns:
-        pd.DataFrame: DataFrame containing timestamp, activity level, and patient ID.
+        pd.DataFrame: DataFrame containing timestamp, heart rate variability per hour, and patient ID.
     """
     data = []
-    if patient_id < 10:
-        filename = "patient_activity_0" + str(patient_id) + ".csv"
-    else:
-        filename = "patient_activity_" + str(patient_id) + ".csv"
+    filename = "patient_hr_" + str(patient_id) + ".csv"
 
-    filepath = os.path.join(os.getcwd(), "dataset", "activity_data", filename) 
+    filepath = os.path.join(os.getcwd(), "dataset", "hrv_data", filename) 
 
     try:
         with open(filepath, 'r') as f:
@@ -34,11 +31,11 @@ def read_activity_file(patient_id):
     except Exception as e:
         print(f"Error reading file {filepath}: {e}")
         return pd.DataFrame()
-    return pd.DataFrame(data, columns=["TIME", "ACT"]).assign(ID=patient_id)
+    return pd.DataFrame(data, columns=["TIME", "HRV"]).assign(ID=patient_id)
 
-def process_activity_files(patient_ids):
+def process_hrv_files(patient_ids):
     """
-    Process all patient activity files.
+    Process all patient hrv files.
     
     Args:
         patient_ids: List of all patients
@@ -48,7 +45,7 @@ def process_activity_files(patient_ids):
     """
     all_data = []
     for patient_id in patient_ids:
-        activity_data = read_activity_file(patient_id)
+        activity_data = read_hrv_file(patient_id, )
         if not activity_data.empty:
             all_data.append(activity_data)
 
