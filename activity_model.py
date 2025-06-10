@@ -24,13 +24,14 @@ def read_activity_file(patient_id):
     filepath = os.path.join(os.getcwd(), "dataset", "activity_data", filename) 
 
     try:
-        with open(filepath, 'r') as f:
-            csv_reader = csv.reader(f, delimiter=";")
-            next(csv_reader)  # Skip header
-            for line in csv_reader:
-                timestamp = datetime.strptime(line[0], "%m-%d-%Y %H:%M").timestamp()
-                activity = int(line[1].split(" ")[0])
-                data.append([timestamp, activity])
+        if os.path.exists(filepath):
+            with open(filepath, 'r') as f:
+                csv_reader = csv.reader(f, delimiter=";")
+                next(csv_reader)  # Skip header
+                for line in csv_reader:
+                    timestamp = datetime.strptime(line[0], "%m-%d-%Y %H:%M").timestamp()
+                    activity = int(line[1].split(" ")[0])
+                    data.append([timestamp, activity])
     except Exception as e:
         print(f"Error reading file {filepath}: {e}")
         return pd.DataFrame()
@@ -54,7 +55,7 @@ def process_activity_files(patient_ids):
 
     if all_data:
         combined_data = pd.concat(all_data, ignore_index=True)  
-        extracted_features = extract_features(combined_data, column_id="ID", column_value="ACT", column_sort="TIME", n_jobs=4, show_warnings=False)
+        extracted_features = extract_features(combined_data, column_id="ID", column_value="ACT", column_sort="TIME", n_jobs=0, show_warnings=False)
         return extracted_features
     
     return pd.DataFrame()
