@@ -6,15 +6,6 @@ from tsfresh import extract_features
 
 
 def read_hrv_file(patient_id):
-    """
-    Read patient hrv file
-    
-    Args:
-        patient_id: Identifier for the patient.
-
-    Returns:
-        pd.DataFrame: DataFrame containing timestamp, heart rate variability per hour, and patient ID.
-    """
     data = []
     filename = "patient_hr_" + str(patient_id) + ".csv"
 
@@ -35,15 +26,6 @@ def read_hrv_file(patient_id):
     return pd.DataFrame(data, columns=["TIME", "HRV"]).assign(ID=patient_id)
 
 def process_hrv_files(patient_ids):
-    """
-    Process all patient hrv files.
-    
-    Args:
-        patient_ids: List of all patients
-
-    Returns:
-        pandas dataframe of extracted features from all patient
-    """
     all_data = []
     for patient_id in patient_ids:
         activity_data = read_hrv_file(patient_id, )
