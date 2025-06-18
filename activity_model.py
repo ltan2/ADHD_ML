@@ -47,15 +47,28 @@ def process_activity_files(patient_ids):
     Returns:
         pandas dataframe of extracted features from all patient
     """
+    patients_df = read_all_files(patient_ids)
+
+    if patients_df:
+        extracted_features = extract_features(patients_dfs, column_id="ID", column_value="ACT", column_sort="TIME", n_jobs=0, show_warnings=False)
+        return extracted_features
+    
+    return pd.DataFrame()
+
+def read_all_files(patient_ids):
+    """
+    Process all patient activity files.
+    
+    Args:
+        patient_ids: List of all patients
+
+    Returns:
+        pandas dataframe of from all patient
+    """
     all_data = []
     for patient_id in patient_ids:
         activity_data = read_activity_file(patient_id)
         if not activity_data.empty:
             all_data.append(activity_data)
 
-    if all_data:
-        combined_data = pd.concat(all_data, ignore_index=True)  
-        extracted_features = extract_features(combined_data, column_id="ID", column_value="ACT", column_sort="TIME", n_jobs=0, show_warnings=False)
-        return extracted_features
-    
-    return pd.DataFrame()
+    return pd.concat(all_data, ignore_index=True)  
