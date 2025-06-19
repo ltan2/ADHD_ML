@@ -48,7 +48,7 @@ def process_activity_files(patient_ids):
     Returns:
         pandas dataframe of extracted features from all patient
     """
-    patients_df = read_all_files(patient_ids)
+    patients_df = read_all_files_act(patient_ids)
 
     if patients_df:
         extracted_features = extract_features(patients_dfs, column_id="ID", column_value="ACT", column_sort="TIME", n_jobs=0, show_warnings=False)
@@ -56,7 +56,7 @@ def process_activity_files(patient_ids):
     
     return pd.DataFrame()
 
-def read_all_files(patient_ids):
+def read_all_files_act(patient_ids):
     """
     Process all patient activity files.
     
