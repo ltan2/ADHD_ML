@@ -29,7 +29,8 @@ def read_activity_file(patient_id):
                 csv_reader = csv.reader(f, delimiter=";")
                 next(csv_reader)  # Skip header
                 for line in csv_reader:
-                    timestamp = datetime.strptime(line[0], "%m-%d-%Y %H:%M").timestamp()
+                    timestamp = datetime.strptime(line[0], "%m-%d-%Y %H:%M")
+                    timestamp = f"{timestamp.hour:02d}:{timestamp.minute:02d}"
                     activity = int(line[1].split(" ")[0])
                     data.append([timestamp, activity])
     except Exception as e:
