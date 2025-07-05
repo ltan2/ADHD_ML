@@ -17,5 +17,3 @@ def extract_imp_features_pca(filename, output_file):
 
     reduced_df = pd.DataFrame(reduced_features)
     reduced_df.to_csv(output_file, index=False)
-
-extract_imp_features_pca("dataset/full_extracted_activity.csv", "dataset/reduced_pca_activity.csv")
