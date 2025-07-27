@@ -14,13 +14,8 @@ def read_patient_info(filename):
     df = pd.read_csv(filepath, delimiter= ";", header = 0)
     return df
 
-def read_X_and_Y():
-    features = pd.read_csv(feature_filename)
-    features.fillna(0, inplace=True)
-    features.replace([np.inf, -np.inf], 0, inplace=True)
-
-    patient_df = pd.read_csv(patient_info_filename, delimiter=";", header=0)
-
+def read_X_and_Y(patient_file, act_or_hrv):
+    patient_df = read_patient_info(patient_file)
     valid_patient_ids = []
 
     if act_or_hrv == "ACT":

@@ -55,7 +55,7 @@ def read_all_files_act(patient_file):
     for patient_id in patient_df["ID"]:
         act_data = read_activity_file(patient_id)
         if not act_data.empty:
-            hrv_data = extract_act_features(act_data, patient_id)
+            act_data = extract_act_features(act_data, patient_id)
             adhd_label = patient_df.loc[patient_df["ID"] == patient_id, "ADHD"].values[0]
             act_data["ADHD"] = adhd_label
             all_data.append(act_data)

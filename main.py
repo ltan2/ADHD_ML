@@ -11,12 +11,12 @@ def main():
     # hrv_df = read_all_files_hrv("patient_info.csv")
     # hrv_df["TIME"] = hrv_df["TIME"].astype("int64")
     # hrv_X_df = tsfresh_pvalue(hrv_df.drop(columns=["ADHD"]), hrv_df["ADHD"])
-    # hrv_df.to_csv("dataset/hrv_tsfresh_pvalue_features.csv")   
+    # hrv_df.to_csv("dataset/hrv_tsfel_features.csv")   
 
     act_df = read_all_files_act("patient_info.csv")
-    act_df["TIME"] = act_df["TIME"].astype("int64")
-    # hrv_df["TIME"] = hrv_df["TIME"].astype("int64")
-    # hrv_X_df = tsfresh_pvalue(hrv_df.drop(columns=["ADHD"]), hrv_df["ADHD"])
+    # act_df["TIME"] = act_df["TIME"].astype("int64")
+    # # hrv_df["TIME"] = hrv_df["TIME"].astype("int64")
+    # # hrv_X_df = tsfresh_pvalue(hrv_df.drop(columns=["ADHD"]), hrv_df["ADHD"])
     act_df.to_csv("dataset/act_tsfel_features.csv")   
 
     # # # using PCA for feature selection
@@ -33,9 +33,14 @@ def main():
 
     # # split data to test and train
     # print("##################################### HRV MODEL #######################################3")
-    # hrv_data = pd.read_csv("dataset/full_extracted_hrv.csv", header = 0)
+    # hrv_data = pd.read_csv("dataset/hrv_tsfel_features.csv", header = 0)
     # X = hrv_data.drop(columns=["ADHD", "ID"])
     # y = hrv_data["ADHD"]
+    # train_run_eval_model(X,y)
+
+    # run X model to p_value extraction
+    # X = extract_with_pvalue(X,y)
+
     # train_run_eval_model(X,y)
 
     print("##################################### ACT MODEL #######################################3")
@@ -43,6 +48,10 @@ def main():
     act_data = pd.read_csv("dataset/act_tsfel_features.csv", header = 0)
     X = act_data.drop(columns=["ADHD", "ID"])
     y = act_data["ADHD"]
+
+    # run X model to p_value extraction
+    X = extract_with_pvalue(X,y)
+
     train_run_eval_model(X,y)
 
     
